@@ -15,6 +15,12 @@ def emotion_detector(text_to_analyze):
 
     emotion_scores |= {"dominant_emotion": dominant_emotion}
 
-    return emotion_scores
+    desired_order = ["anger", "disgust", "fear", "joy", "sadness", "dominant_emotion"]
+    
+    sorted_emotions = {key: emotion_scores[key] for key in desired_order if key in emotion_scores}
 
-# print(emotion_detector(" I am so happy I am doing this"))
+    json_response = json.dumps(sorted_emotions, indent=4, separators=(',', ': '))
+
+    return json_response
+
+print(emotion_detector("I love this new technology"))
